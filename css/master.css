@@ -1,0 +1,73 @@
+.navbar {
+  border-bottom: .1px solid #E1E1E1;
+}
+.nav-link {
+  font-size: 130%;
+}
+.active {
+  border-bottom: 2px solid #0d6efd !important;
+}
+.user-info {
+  position: absolute;
+  right: 0;
+  margin-right: 2%;
+  margin-bottom: 0;
+}
+.user-info h4 {
+  font-size: 140%;
+  margin-bottom: 0;
+}
+.user-info p {
+  font-size: 65%;
+  float: right;
+}
+body {
+  background-color: #4F9BD7 !important; /*I know this is bad practice, but I can't for the life of me figure out whats keeping it white otherwise.*/
+}
+
+main {
+  width: 500px;
+  background-color: #FFF;
+}
+
+.blogpost {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.blogpost h5 {
+  font-size: 75%;
+  font-style: italic;
+}
+
+.section_con {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+.section_label {
+  align-self: center;
+  width: 100px;
+}
+.section_opt {
+  padding-left: 40px;
+  font-size: 120%;
+}
+.disabled_label {
+  color: #B7B7B7;
+  text-decoration: line-through;
+}
+.item_num {
+  width: 40px;
+  display: none;
+
+  margin-left: 20px;
+}
+
+form input[type="submit"] {
+  margin-bottom: 10px;
+}
+form {
+  margin-bottom: 3vh;
+}

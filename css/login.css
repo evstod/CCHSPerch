@@ -1,0 +1,86 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #426C8F;
+}
+/*login form*/
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 500px;
+  background-color: #FFF;
+  margin-top: 100px;
+  height: 400px;
+
+  box-shadow: 6px 6px 10px 5px #000000CC;
+  border-radius: 4px;
+}
+.login_in {
+  border-radius: 5px;
+  padding: 8px;
+}
+.login_in input {
+  font-size: 2vw;
+}
+.login_id {
+  background-color: #607CE9;
+  margin-bottom: 30px;
+}
+.login_pin {
+  background-color: #848484;
+}
+.login_id label, .login_pin label {
+  display: block;
+  text-align: center;
+}
+.login_id input, .login_pin input {
+  display: block;
+}
+.login_footer {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 18px;
+}
+.login_error {
+  width: 70%;
+  color: #FF2424;
+  font-size: 80%;
+  flex-shrink: 2;
+}
+.login_submitCon input {
+  width: 150px;
+  font-size: 1em;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #848484;
+  color: #FFF;
+}
+.login_staffRedir button {
+  width: 150px;
+  font-size: 1em;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #426C8F;
+  color: #FFF;
+  border-radius: 0;
+}
+
+
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 812px) {
+  .login {
+    margin-top: auto;
+    height: 70vh;
+  }
+  .login_in input {
+    font-size: 30px;
+  }
+}
