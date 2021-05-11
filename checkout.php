@@ -39,6 +39,27 @@
       flex-direction: column !important;
     }
   }
+
+  .container>div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  .orderType_con {
+    width: 100%;
+  }
+  .orderBtn_con {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    width: 100%;
+  }
+  .orderBtn_con input {
+    margin-left: 30px;
+  }
   </style>
   <?php
     session_start();
@@ -69,16 +90,26 @@
           foreach ($_GET as $key => $value) {
             $keyFormat = str_replace("_", " ", $key);
             $keyFormat = str_replace("Num", "", $keyFormat);
-            echo "<li><input type='number' name='" . $key . "' value='" . $value . "' />" . $keyFormat . "</li>";
+            echo "<li><input disabled type='number' name='" . $key . "_num' value='" . $value . "' />" . $keyFormat . "</li>";
+            echo "<input hidden type='text' name='" . $key . "_format' value='" . $keyFormat . "' />";
             $total += $value;
           }
           ?>
+          <input hidden type="text" name="total" value="<?php echo $total; ?>">
         </ul>
+        <br>
+        <div class="orderType_con">
+          <input type="radio" name="orderType" value="pickup" id="pickup" checked><label for="pickup"> Pickup</label><br>
+          <input type="radio" name="orderType" value="deliver" id="deliver" <?php if (!isset($_SESSION['isStaff'])) {echo "disabled";} ?>><label for="deliver"> Delivery Cart <?php if (!isset($_SESSION['isStaff'])) {echo "<span class='text-danger'>By Staff Order Only</span>";} ?></label>
+        </div>
       </div>
       <div class="orderSubmit">
         <textarea name="addNotes" rows="8" cols="60" placeholder="Additional Notes, special instructions,..."></textarea>
         <br>
-        <h3 class="orderTotal float-right">Total: <b>$<?php echo $total; ?></b></h3>
+        <div class="orderBtn_con">
+          <h3 class="orderTotal float-right">Total: <b>$<?php echo $total; ?></b></h3>
+          <input type="submit" name="" value="Place Order" class="btn-lg btn-primary">
+        </div>
       </div>
     </main>
   </body>
