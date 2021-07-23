@@ -69,48 +69,59 @@
     header("Location: index.php?errorMsg=2");
     }
    ?>
-  <body>
-    <nav class="navbar navbar-expand bg-light align-content-center justify-content-center">
-      <ul class="navbar-nav nav-tabs nav-justified  align-content-center justify-content-center">
-        <li class="nav-item" ><a class="nav-link" href="blog.php">Blog</a></li>
-        <li class="nav-item active" ><a class="nav-link" href="#">Order</a></li>
-      </ul>
-      <div class="user-info">
-        <h4><?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName'] ?></h4>
-        <p class=""><a href="logout.php">Not you?</a></p>
-      </div>
-    </nav>
-    <main class="container">
-      <div class="orderNotes">
-        <h2>Your Order</h2>
-        <h5>Each item is $1</h5>
-        <ul class="border-info">
-          <?php
-          $total = 0;
-          foreach ($_GET as $key => $value) {
-            $keyFormat = str_replace("_", " ", $key);
-            $keyFormat = str_replace("Num", "", $keyFormat);
-            echo "<li><input disabled type='number' name='" . $key . "_num' value='" . $value . "' />" . $keyFormat . "</li>";
-            echo "<input hidden type='text' name='" . $key . "_format' value='" . $keyFormat . "' />";
-            $total += $value;
-          }
-          ?>
-          <input hidden type="text" name="total" value="<?php echo $total; ?>">
-        </ul>
-        <br>
-        <div class="orderType_con">
-          <input type="radio" name="orderType" value="pickup" id="pickup" checked><label for="pickup"> Pickup</label><br>
-          <input type="radio" name="orderType" value="deliver" id="deliver" <?php if (!isset($_SESSION['isStaff'])) {echo "disabled";} ?>><label for="deliver"> Delivery Cart <?php if (!isset($_SESSION['isStaff'])) {echo "<span class='text-danger'>By Staff Order Only</span>";} ?></label>
-        </div>
-      </div>
-      <div class="orderSubmit">
-        <textarea name="addNotes" rows="8" cols="60" placeholder="Additional Notes, special instructions,..."></textarea>
-        <br>
-        <div class="orderBtn_con">
-          <h3 class="orderTotal float-right">Total: <b>$<?php echo $total; ?></b></h3>
-          <input type="submit" name="" value="Place Order" class="btn-lg btn-primary">
-        </div>
-      </div>
-    </main>
-  </body>
+   <form class="" action="sendOrder.php" method="post">
+     <body>
+       <nav class="navbar navbar-expand bg-light align-content-center justify-content-center">
+         <ul class="navbar-nav nav-tabs nav-justified  align-content-center justify-content-center">
+           <li class="nav-item" ><a class="nav-link" href="blog.php">Blog</a></li>
+           <li class="nav-item active" ><a class="nav-link" href="#">Order</a></li>
+         </ul>
+         <div class="user-info">
+           <h4><?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName'] ?></h4>
+           <p class=""><a href="logout.php">Not you?</a></p>
+         </div>
+       </nav>
+       <main class="container">
+         <div class="orderNotes">
+           <h2>Your Order</h2>
+           <h5>Each item is $1</h5>
+           <ul class="border-info">
+             <?php
+             $total = 0;
+             foreach ($_GET as $key => $value) {
+               $key = str_replace("Num", "", $key);
+               $keyFormat = str_replace("_", " ", $key);
+               echo "<li><input disabled type='number' name='" . $key . "_num' value='" . $value . "' />" . $keyFormat . "</li>";
+               echo "<input hidden type='number' name='" . $key . "_num' value='" . $value . "' />";
+               echo "<input hidden type='text' name='" . $key . "_format' value='" . $keyFormat . "' />";
+               $total += intval($value);
+             }
+             ?>
+             <input hidden type="text" name="total" value="<?php echo $total; ?>">
+           </ul>
+           <br>
+           <div class="orderType_con">
+             <input type="radio" name="orderType" value="pickup" id="pickup" checked><label for="pickup"> Pickup</label><br>
+             <input type="radio" name="orderType" value="deliver" id="deliver" <?php if (!isset($_SESSION['isStaff'])) {echo "disabled";} ?>><label for="deliver"> Delivery Cart <?php if (!isset($_SESSION['isStaff'])) {echo "<span class='text-danger'>By Staff Order Only</span>";} ?></label>
+             <p id="deliverNote" class="text-danger hidden">Please put your room number in Additional Notes</p>
+             <script type="text/javascript">
+             $(function () {
+                 $('#deliver').on('click', function () {
+                     $('#deliverNote').toggle(this.checked);
+                 });
+             });
+             </script>
+           </div>
+         </div>
+         <div class="orderSubmit">
+           <textarea name="addNotes" rows="8" cols="60" placeholder="Additional Notes, special instructions,..."></textarea>
+           <br>
+           <div class="orderBtn_con">
+             <h3 class="orderTotal float-right">Total: <b>$<?php echo $total; ?></b></h3>
+             <input type="submit" name="" value="Place Order" class="btn-lg btn-primary">
+           </div>
+         </div>
+       </main>
+     </body>
+   </form>
 </html>

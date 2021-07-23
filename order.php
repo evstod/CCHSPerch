@@ -21,7 +21,9 @@
       $data = array();
       foreach ($_GET as $key => $value) {
         if ($value > 0) { //add selected items to request for checkout
-          $data[$key] = $value;
+          if (!str_contains($key, "_flavor")) {
+            $data[$key] = $value;
+          }
         }
       }
       if (sizeof($data) < 2) {

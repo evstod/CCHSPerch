@@ -8,8 +8,8 @@
   </head>
   <body>
     <form class="login" action="index.php" method="post">
-      <h1>*CCHS PERCH LOGO*</h1>
-      <br><br><br>
+      <img id="logo" src="img/perchlogo.jpg" alt="CCHS Perch Logo">
+      <br>
       <div class="login_id login_in">
         <label for="stud_id">Student ID</label>
         <input type="username" name="stud_id" value="" required>
@@ -60,7 +60,7 @@
       if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
       }
-      $sql = "SELECT ID, LastName, FirstName FROM user_student WHERE ID = '" . $id . "' AND PIN = '" . $pin . "'";
+      $sql = "SELECT ID, LastName, FirstName, isAdmin FROM user_student WHERE ID = '" . $id . "' AND PIN = '" . $pin . "'";
       $result = mysqli_query($conn, $sql);
 
       if ($row = mysqli_fetch_assoc($result)) {
@@ -69,6 +69,7 @@
         $_SESSION['ID'] = $row['ID'];
         $_SESSION['LastName'] = $row['LastName'];
         $_SESSION['FirstName'] = $row['FirstName'];
+        $_SESSION['isAdmin'] = $row['isAdmin'];
         header("Location: blog.php");
         die();
       }

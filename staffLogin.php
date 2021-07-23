@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="css/login.css">
   </head>
   <body>
-    <form class="login" action="index.php" method="post">
-      <h1>*CCHS PERCH LOGO*</h1>
-      <br><br><br>
+    <form class="login" action="staffLogin.php" method="post">
+      <img id="logo" src="img/perchlogo.jpg" alt="CCHS Perch Logo">
+      <br>
       <div class="login_id login_in">
-        <label for="stud_id">District Email</label>
-        <input type="email" name="stud_id" value="" required>
+        <label for="email">District Email</label>
+        <input type="email" name="email" value="" required>
       </div>
       <div class="login_pin login_in">
         <label for="pin">PIN</label>
@@ -43,7 +43,7 @@
         $value = htmlspecialchars($value);
         return $value;
       }
-      $id = $_REQUEST['stud_id'];
+      $email = $_REQUEST['email'];
       $pin = $_REQUEST['pin'];
 
       $servername = "localhost";
@@ -57,20 +57,21 @@
       if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
       }
-      $sql = "SELECT ID, LastName, FirstName FROM user_student WHERE ID = '" . $id . "' AND PIN = '" . $pin . "'";
+      $sql = "SELECT Email, LastName, FirstName, isAdmin FROM user_staff WHERE Email = '" . $email . "' AND PIN = '" . $pin . "'";
       $result = mysqli_query($conn, $sql);
-
       if ($row = mysqli_fetch_assoc($result)) {
         //User login succeed; start session
         session_start();
-        $_SESSION['ID'] = $row['ID'];
+        $_SESSION['ID'] = $row['Email'];
         $_SESSION['LastName'] = $row['lastName'];
         $_SESSION['FirstName'] = $row['FirstName'];
+        $_SESSION['isStaff'] = true;
+        $_SESSION['isAdmin'] = $row['isAdmin'];
         header("Location: blog.php");
         die();
       }
       else {
-        header("Location: satffLogin.php?errorMsg=1");
+        header("Location: staffLogin.php?errorMsg=1");
         die();
       }
     }

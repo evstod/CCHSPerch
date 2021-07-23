@@ -21,12 +21,36 @@
       <ul class="navbar-nav nav-tabs nav-justified  align-content-center justify-content-center">
         <li class="nav-item active" ><a class="nav-link" href="#">Blog</a></li>
         <li class="nav-item" ><a class="nav-link" href="order.php">Order</a></li>
+        <?php if ($_SESSION['isAdmin'] == 1) {
+          echo "<li class=\"nav-item\" ><a class=\"nav-link\" href=\"admin/index.php\">Admin</a></li>";
+        } ?>
       </ul>
       <div class="user-info">
         <h4><?php echo $_SESSION['FirstName'] . " " . $_SESSION['LastName'] ?></h4>
         <p class=""><a href="logout.php">Not you?</a></p>
       </div>
     </nav>
+    <?php
+    if (isset($_GET['orderSuccess'])) {
+      if ($_GET['orderSuccess'] == 1) {
+        echo "<div class='alert alert-success alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' onclick='$(this).parent().remove();'>×</button>
+                <strong>Success!</strong> Order Sent! Please pickup at the Coffee Shop next to the Cafeteria entrance.
+              </div>";
+      }
+      else {
+        echo "<div class='alert alert-danger alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' onclick='$(this).parent().remove();'>×</button>
+                <strong>Error!</strong> Your order could not be processed.
+              </div>";      }
+    }
+    if (isset($_GET['adminDeny'])) {
+      echo "<div class='alert alert-danger alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' onclick='$(this).parent().remove();'>×</button>
+              <strong>Access Denied!</strong> You do not have permission to access this page.
+            </div>";
+    }
+    ?>
     <main class="container">
       <?php
       $servername = "localhost";
