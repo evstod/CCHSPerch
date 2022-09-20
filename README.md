@@ -1,2 +1,3 @@
 # CCHSPerch
-idk you write something here
+
+A shop blog, ordering service, and employee terminal for the Cedar Crest High School coffee shop.
